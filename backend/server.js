@@ -1,11 +1,12 @@
 const path = require('path');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const app = require('./app');
 
+// IMPORTANT: load env vars BEFORE importing `app` (which validates env via `config/env.js`).
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
 const { env } = require('./config/env');
+const app = require('./app');
 
 const start = async () => {
   // Mongoose is quiet by default; explicit connection makes failures obvious.

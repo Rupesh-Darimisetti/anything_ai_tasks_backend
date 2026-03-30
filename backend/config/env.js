@@ -1,10 +1,22 @@
 const Joi = require('joi');
 
+const stripQuotes = (value) => {
+  if (typeof value !== 'string') return value;
+  const trimmed = value.trim();
+  if (
+    (trimmed.startsWith("'") && trimmed.endsWith("'")) ||
+    (trimmed.startsWith('"') && trimmed.endsWith('"'))
+  ) {
+    return trimmed.slice(1, -1);
+  }
+  return trimmed;
+};
+
 const schema = Joi.object({
   NODE_ENV: Joi.string().valid('development', 'test', 'production').default('development'),
   PORT: Joi.number().port().default(5000),
-  MONGO_URI: Joi.string().min(10).required(),
-  JWT_SECRET: Joi.string().min(10).required(),
+  MONGO_URI: Joi.string().trim().custom(stripQuotes).min(10).required(),
+  JWT_SECRET: Joi.string().trim().custom(stripQuotes).min(10).required(),
   JWT_EXPIRES_IN: Joi.string().default('1h'),
   CORS_ORIGIN: Joi.string().optional(),
 });

@@ -23,6 +23,17 @@ This project provides a Node.js/Express backend with JWT authentication (bcrypt 
 3. Start the server:
    - `npm run dev`
 
+### Create an `admin` user (local/dev)
+
+Registration always creates `role: "user"`, so promote/create an admin with the helper script:
+
+- Set `ADMIN_EMAIL` + `ADMIN_PASSWORD` in your root `.env` (optional `ADMIN_NAME`), then run:
+  - `cd backend && npm run create-admin`
+
+Or pass flags (no need to edit `.env`):
+
+- `cd backend && npm run create-admin -- --email=admin@example.com --password='StrongPassw0rd!' --name=Admin`
+
 Backend base URL:
 - `http://localhost:5000/api/v1`
 - Swagger UI: `http://localhost:5000/api-docs`
